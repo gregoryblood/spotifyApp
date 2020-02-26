@@ -13,9 +13,9 @@ var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 
-var client_id = 'CLIENT_ID'; // Your client id
-var client_secret = 'CLIENT_SECRET'; // Your secret
-var redirect_uri = 'REDIRECT_URI'; // Your redirect uri
+var client_id = '7fdc86b92efb4481acfc8a3cf4891dd1'; // Your client id
+var client_secret = 'b24b59f0ce50488ba6901a37a9fc5814'; // Your secret
+var redirect_uri = 'http://localhost:3000'; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
@@ -104,11 +104,12 @@ app.get('/callback', function(req, res) {
         });
 
         // we can also pass the token to the browser to make requests from there
-        res.redirect('/#' +
-          querystring.stringify({
-            access_token: access_token,
-            refresh_token: refresh_token
-          }));
+        res.redirect(
+          `http://localhost:3000/#${querystring.stringify({
+            access_token,
+            refresh_token,
+          })}`,
+        );
       } else {
         res.redirect('/#' +
           querystring.stringify({
