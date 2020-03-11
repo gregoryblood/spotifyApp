@@ -24,7 +24,7 @@ class App extends Component {
   render() {
     const { token } = this.state;
 
-    
+    console.debug("== Token: " + token);
     return (
       <AppFull>
         

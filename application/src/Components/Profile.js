@@ -4,18 +4,14 @@ import { getQueriesForElement } from '@testing-library/react';
 import { getUserInfo } from '../API/spotify'
 
 class Profile extends Component {
-  state = {
-    user: null,
-  };
-
   async getData() {
-    const { user } = await getUserInfo();
-    this.setState({ user});
+    
   }
   render() {
-    const {user} = this.state;
+    var user = getUserInfo();
+    console.debug("== User: " + user);
     return (
-      <div>{user.display_name}</div>
+      <h1>Profile: {user}</h1>
     );
   }
 }

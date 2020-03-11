@@ -1,21 +1,19 @@
 import axios from 'axios';
 
 export const getHashParams = () => {
-    const hashParams = {};
-    let e;
-    const r = /([^&;=]+)=?([^&;]*)/g;
-    const q = window.location.hash.substring(1);
-    console.debug(q);
-    while ((e = r.exec(q))) {
-      hashParams[e[1]] = decodeURIComponent(e[2]);
-    }
-    
-    return hashParams;
+  var hash = window.location.hash.substr(1);
+  console.debug("== Hash: " + hash);
+  var result = hash.split('&').reduce(function (result, item) {
+      var parts = item.split('=');
+      result[parts[0]] = parts[1];
+      return result;
+  }, {});
+  return result;
   };
   export const getAccessToken = () => {
     const access_token = getHashParams();
     
-    return access_token;
+    return access_token[Object.keys(access_token)[0]];
   };
   export const token = getAccessToken();
 
@@ -23,16 +21,11 @@ export const getHashParams = () => {
     Authorization: `Bearer ${token}`,
     'Content-Type': 'application/json',
   };
-  export const getUser = () => axios.get('https://api.spotify.com/v1/me', { headers });
   export const getUserInfo = () => {
-    return axios
-      .all([getUser()])
-      .then(
-        axios.spread((user) => {
-          return {
-            user: user.data,
+    axios.get('https://api.spotify.com/v1/me', { headers })
+      .then((response) => {
+        console.debug("== Data: " + response.data.display_name);
+        return response.data.display_name;
 
-          };
-        }),
-      );
+      });
   };
