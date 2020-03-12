@@ -27,7 +27,13 @@ export const getHashParams = () => {
     window.location.reload();
     return;
   }
+  
   export const getAccessToken = () => {
+    //after 1 hour grab a new one
+    if (Date.now() - getExpTime() > 1000 * 60 * 60) {
+      console.debug("== REFRESHED TOKEN");
+      refreshToken();
+    }
     const localAccessToken = getLocalAccessToken();
     const localRefreshToken = getLocalRefreshToken();
     if (!localRefreshToken || localRefreshToken == 'undefined') {
@@ -37,13 +43,12 @@ export const getHashParams = () => {
     if (!localAccessToken || localAccessToken == 'undefined') {
       const access_token = getHashParams();
       setLocalAccessToken(access_token[Object.keys(access_token)[0]]);
+      setTokenTimestamp();
       return access_token[Object.keys(access_token)[0]];
     }
-    //after 1 hour grab a new one
-    if (Date.now() - getExpTime() > 1000 * 60 * 60) {
-      console.debug("== REFRESHED TOKEN");
-      refreshToken();
-    }
+    
+    
+    
     console.debug("== Used Storage Token: " + localAccessToken);
     return localAccessToken;
     

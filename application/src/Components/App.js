@@ -15,7 +15,7 @@ import { token } from '../API/spotify';
 
 const AppFull = styled.div`
   height: 100%;
-  
+  font-family: 'Raleway', sans-serif;
   background: #191414;
 `;
 
@@ -41,9 +41,7 @@ class App extends Component {
               <Route path="/">
                 <Profile path="/"/>
               </Route>
-              
             </Switch>
-            
           </React.Fragment>
         ) : (<LoginScreen />)}
       </AppFull>
