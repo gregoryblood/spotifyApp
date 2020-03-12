@@ -1,14 +1,22 @@
 import React, { useState, Component } from 'react';
-import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
+import { Switch,
+  Route,
+  Link,
+  NavLink,
+  Redirect,
+  useParams,
+  useRouteMatch } from 'react-router-dom';
 import styled from '@emotion/styled';
 
 import LoginScreen from './LoginScreen';
 import Profile from './Profile';
+import Nav from './NavBar';
 import { token } from '../API/spotify';
 
 const AppFull = styled.div`
   height: 100%;
-  min-height: 100vh;
+  
+  background: #191414;
 `;
 
 
@@ -18,7 +26,6 @@ class App extends Component {
     token: '',
   };
   componentDidMount() {
-    
     this.setState({ token });
   }
   render() {
@@ -27,8 +34,18 @@ class App extends Component {
     console.debug("== Token: " + token);
     return (
       <AppFull>
-        
-        {token ? <Profile /> : <LoginScreen />}
+        {token ? (
+          <React.Fragment>
+            <Nav/>
+            <Switch >
+              <Route path="/">
+                <Profile path="/"/>
+              </Route>
+              
+            </Switch>
+            
+          </React.Fragment>
+        ) : (<LoginScreen />)}
       </AppFull>
     );
   }
