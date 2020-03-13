@@ -9,18 +9,32 @@ const Sorter = styled.div`
   text-align: center;
   margin: auto;
   margin-top: 100px;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   width: 400px;
   padding: 20px 10px;
   border-style: solid;
   border-color: grey;
   border-width: 1px;
   border-radius: 50px;
-  &:hover {
+  &:hover, &:focus {
     cursor: pointer;
     background: #1DB954;
     border-color: #1DB954;
   }
+  @media(max-width: 768px) {
+    width: 90%;
+    font-size: 24px;
+  }
+`;
+const Tip = styled.div`
+  font-size: 24px;
+  color: grey;
+  text-align: center;
+  font-style: italic;
+  margin: auto;
+  margin-top: 0px;
+  margin-bottom: 50px;
+  
 `;
 const TrackBlock = styled.div`
   heigth: 100px;
@@ -34,20 +48,27 @@ const TrackBlock = styled.div`
     cursor: default;
     color: #1DB954;
   }
+  @media(max-width: 768px) {
+    width: 100%;
+    font-size: 12px;
+    margin-left: 0;
+    margin-right: 0;
+  }
 `;
 const TrackFlex = styled.div`
   display: flex;
-  width: 80%;
+  width: 95%;
   max-width: 1500px;
   margin: 0 auto;
   flex-direction: column;
   flex-wrap: wrap;
   justify-conent: center;
-  border-radius: 35px;
-  background: #21272C;
-  box-shadow:  10px 10px 30px #1b2025, 
-              -10px -10px 30px #272e33;
-  
+  @media(min-width: 768px) {
+    border-radius: 35px;
+    background: #21272C;
+    box-shadow:  10px 10px 30px #1b2025, 
+                -10px -10px 30px #272e33;
+  }
 `;
 
 const TrackName = styled.div`
@@ -73,6 +94,11 @@ const Loading = styled.div`
   position: fixed;
   top: 40%;
   left: 40%;
+  @media(max-width: 768px) {
+    font-size: 24px;
+    margin-bottom: 10px;
+    
+  }
 `;
 
 class Playlist extends Component {
@@ -102,6 +128,7 @@ class Playlist extends Component {
         {playlist ? (
           <React.Fragment>
             <Sorter>Sort by Energy</Sorter>
+            <Tip>A new playlist will be created</Tip>
             <TrackFlex>
               {playlist.tracks.items.map((tracks, i) => (
                 <TrackBlock key = {i}>

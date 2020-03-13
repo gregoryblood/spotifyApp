@@ -14,7 +14,12 @@ const UserImg = styled.img`
   background: #21272C;
   box-shadow:  20px 20px 60px #1b2025, 
               -20px -20px 60px #272e33;
-  
+              
+  @media(max-width: 768px) {
+    height: 100px;
+    width: 100px;
+    margin-left: -50px;
+  }
 `;
 const Name = styled.div`
   color: #FFFFFF;
@@ -24,7 +29,11 @@ const Name = styled.div`
   width: 100%;
   margin: 20px auto;
   display: block;
-  
+  @media(max-width: 768px) {
+    font-size: 24px;
+    margin-bottom: 10px;
+    
+  }
 `;
 const ArtistBlock = styled.div`
   border-radius: 50px;
@@ -48,6 +57,10 @@ const ArtistBlock = styled.div`
     background: #21272C;
     box-shadow: inset 20px 20px 60px #1b2025, 
                 inset -20px -20px 60px #272e33;
+  }
+  @media(max-width: 768px) {
+    font-size: 12px;
+    margin: 15px 0px;
   }
 
 `;
@@ -88,6 +101,11 @@ const Loading = styled.div`
   position: fixed;
   top: 40%;
   left: 40%;
+  @media(max-width: 768px) {
+    font-size: 12px;
+    margin-bottom: 10px;
+    
+  }
 `;
 
 class Profile extends Component {

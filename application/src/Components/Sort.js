@@ -9,6 +9,11 @@ const Title = styled.div`
   text-align: center;
   margin: 40px;
   margin-top: 100px;
+  @media(max-width: 768px) {
+    font-size: 24px;
+    margin-bottom: 10px;
+    
+  }
   
 `;
 const PlaylistBlock = styled(Link)`
@@ -30,6 +35,10 @@ const PlaylistBlock = styled(Link)`
     background: #21272C;
     box-shadow: inset 20px 20px 60px #1b2025, 
                 inset -20px -20px 60px #272e33;
+  }
+  @media(max-width: 768px) {
+    font-size: 12px;
+    margin: 15px 0px;
   }
 
 `;
@@ -70,6 +79,11 @@ const Loading = styled.div`
   position: fixed;
   top: 40%;
   left: 40%;
+  @media(max-width: 768px) {
+    font-size: 24px;
+    margin-bottom: 10px;
+    
+  }
 `;
 
 class Sort extends Component {

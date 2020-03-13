@@ -59,11 +59,10 @@ const NavItem = styled.div`
   color: #FFFFFF;
   display: inline-block;
   font-size: 36px;
-  margin: 15px 45px;
+  margin: 15px 0px;
+  margin-right: 50px;
   @media(max-width: 768px) {
     font-size: 24px;
-    margin: 20px 30px;
-    
   }
   &:hover {
     color: #1DB954;
