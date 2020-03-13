@@ -19,54 +19,56 @@ export const getHashParams = () => {
       return result;
   }, {});
   return result;
-  };
-  const refreshToken = async() => {
-    const { data } = await axios.get(`/refresh_token?refresh_token=${getLocalRefreshToken()}`);
-    const { access_token } = data;
-    setLocalAccessToken(access_token);
-    window.location.reload();
-    return;
+};
+const refreshToken = async() => {
+  const { data } = await axios.get(`http://localhost:8888/refresh_token`);
+  const { access_token } = data;
+  setLocalAccessToken(access_token);
+  window.location.reload();
+  return;
+}
+
+export const getAccessToken = () => {
+  //after 1 hour grab a new one
+  if (Date.now() - getExpTime() > 1000 * 60 * 60) {
+    logout();
+    window.location.href = "http://localhost:3000/";
+
+    console.debug("== REFRESHED TOKEN");
+    refreshToken();
+  }
+  const localAccessToken = getLocalAccessToken();
+  const localRefreshToken = getLocalRefreshToken();
+  if (!localRefreshToken || localRefreshToken == 'undefined') {
+    const refresh_token = getHashParams();
+    setLocalRefreshToken(refresh_token[Object.keys(refresh_token)[1]]);
+  }
+  if (!localAccessToken || localAccessToken == 'undefined') {
+    const access_token = getHashParams();
+    setLocalAccessToken(access_token[Object.keys(access_token)[0]]);
+    return access_token[Object.keys(access_token)[0]];
   }
   
-  export const getAccessToken = () => {
-    //after 1 hour grab a new one
-    if (Date.now() - getExpTime() > 1000 * 60 * 60) {
-      console.debug("== REFRESHED TOKEN");
-      refreshToken();
-    }
-    const localAccessToken = getLocalAccessToken();
-    const localRefreshToken = getLocalRefreshToken();
-    if (!localRefreshToken || localRefreshToken == 'undefined') {
-      const refresh_token = getHashParams();
-      setLocalRefreshToken(refresh_token[Object.keys(refresh_token)[1]]);
-    }
-    if (!localAccessToken || localAccessToken == 'undefined') {
-      const access_token = getHashParams();
-      setLocalAccessToken(access_token[Object.keys(access_token)[0]]);
-      setTokenTimestamp();
-      return access_token[Object.keys(access_token)[0]];
-    }
-    
-    
-    
-    console.debug("== Used Storage Token: " + localAccessToken);
-    return localAccessToken;
-    
-  };
-  export const logout = () => {
-    window.localStorage.removeItem('spotify_token_timestamp');
-    window.localStorage.removeItem('spotify_access_token');
-    window.localStorage.removeItem('spotify_refresh_token');
-    window.location.reload();
-  };
+  
+  
+  console.debug("== Used Storage Token: " + localAccessToken);
+  return localAccessToken;
+  
+};
+export const logout = () => {
+  window.localStorage.removeItem('spotify_token_timestamp');
+  window.localStorage.removeItem('spotify_access_token');
+  window.localStorage.removeItem('spotify_refresh_token');
+  window.location.assign("http://localhost:3000");
+};
 
 
-  export const token = getAccessToken();
+export const token = getAccessToken();
 
-  const headers = {
-    Authorization: `Bearer ${token}`,
-    'Content-Type': 'application/json',
-  };
+const headers = {
+  Authorization: `Bearer ${token}`,
+  'Content-Type': 'application/json',
+};
  
 //Gets user
 export const getUser = () => 
@@ -74,19 +76,69 @@ export const getUser = () =>
 //gets user's top artists from the last 6 months
 export const getArtists = () =>
   axios.get('https://api.spotify.com/v1/me/top/artists?limit=50&time_range=medium_term', { headers });
-//gets user's top tracks from the last 6 months
-  export const getTopTracks = () =>
-axios.get('https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=medium_term', { headers });
+//gets a user's playlists
+export const getPlaylists = () =>
+  axios.get('https://api.spotify.com/v1/me/playlists?limit=50', { headers });
+
+export const getPlaylist = playlistId =>
+  axios.get(`https://api.spotify.com/v1/playlists/${playlistId}`, { headers });
+
+//gets features of a track (Needs Track Id)
+export const getTrackAudioFeatures = trackId =>
+  axios.get(`https://api.spotify.com/v1/audio-features/${trackId}`, { headers });
+
+
+
 //gets anything related to an individual user
 export const getUserInfo = () => {
+  console.debug("== Getting User Info");
   return axios
-    .all([getUser(), getArtists(), getTopTracks()])
+    .all([getUser(), getArtists()])
     .then(
-      axios.spread((user, artists, tracks) => {
+      axios.spread((user, artists) => {
         return {
           user: user.data,
           artists: artists.data,
-          tracks: tracks.data
+        };
+      }),
+    );
+};
+
+//Gets user Playlists
+export const getUserPlaylists = () => {
+  console.debug("== Getting User Playlists");
+  return axios
+    .all([getPlaylists()])
+    .then(
+      axios.spread((playlists) => {
+        return {
+          playlists: playlists.data,
+        };
+      }),
+    );
+}
+//Gets specific playlist
+export const getCertainPlaylist = playlistId => {
+  console.debug("== Getting User Playlist. ID: " + playlistId);
+  return axios
+    .all([getPlaylist(playlistId)])
+    .then(
+      axios.spread((playlist) => {
+        return {
+          playlist: playlist.data,
+        };
+      }),
+    );
+}
+//gets track features
+export const getTrackInfo = trackId => {
+  console.debug("== Getting TrackIds");
+  return axios
+    .all([getTrackAudioFeatures(trackId)])
+    .then(
+      axios.spread((audioFeatures) => {
+        return {
+          audioFeatures: audioFeatures.data,
         };
       }),
     );

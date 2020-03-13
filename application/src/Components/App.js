@@ -10,13 +10,15 @@ import styled from '@emotion/styled';
 
 import LoginScreen from './LoginScreen';
 import Profile from './Profile';
+import Playlist from './Playlist';
+import Sort from './Sort';
 import Nav from './NavBar';
 import { token } from '../API/spotify';
 
 const AppFull = styled.div`
   height: 100%;
   font-family: 'Raleway', sans-serif;
-  background: #191414;
+  
 `;
 
 
@@ -30,7 +32,7 @@ class App extends Component {
   }
   render() {
     const { token } = this.state;
-
+    
     console.debug("== Token: " + token);
     return (
       <AppFull>
@@ -38,8 +40,14 @@ class App extends Component {
           <React.Fragment>
             <Nav/>
             <Switch >
+              <Route path="/sort">
+                <Sort/>
+              </Route>
+              <Route path="/playlist">
+                <Playlist/>
+              </Route>
               <Route path="/">
-                <Profile path="/"/>
+                <Profile/>
               </Route>
             </Switch>
           </React.Fragment>

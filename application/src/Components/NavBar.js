@@ -1,39 +1,54 @@
 import React, { Component } from 'react';
 import styled from '@emotion/styled';
 import { getQueriesForElement } from '@testing-library/react';
-import { getUserInfo } from '../API/spotify'
+import { logout } from '../API/spotify'
 import icon from '../SpotifyIconGreen.png'
+import { useRouteMatch, NavLink } from 'react-router-dom';
+
 const SpotifyIcon = styled.img`
-  float: left;
+  
   position: absolute;
-  margin-left: 2vw;
-  margin-top: 1vw;
+  left: 30px;
+  top: 30px;
   height: 100px;
   width: 100px;
   &:hover {
-    cursor: pointer;
+    cursor: normal;
+  }
+  @media(max-width: 768px) {
+    height: 50px;
+    width: 50px;
+    
   }
 `;
 const SignOut = styled.div`
+  position: absolute;
   float: right;
-  margin-right: 4vw;
-  margin-top: 3vw;
+  right: 60px;
+  top: 60px;
+
   color: #999999;
   text-decoration: underline;
   &:hover {
     cursor: pointer;
     color: white;
   }
+  @media(max-width: 768px) {
+    right: 20px;
+    top: 40px;
+    
+  }
 `;
 
 const NavBar = styled.div`
   position: fixed;
-  background: #191414;
+  background: #21272C;
   height: 100px;
   overflow: hidden;
   bottom: 0;
   width: 100%;
-  box-shadow: 0px 0 25px 25px rgba(0, 0, 0, 0.8);
+
+  box-shadow: 0px 0 25px 25px #21272C;
 `;
 const NavItems = styled.ul`
   text-align: center;
@@ -60,24 +75,31 @@ const NavItem = styled.div`
 
 
 class Nav extends Component {
-render() {
+
+  render() { 
+    function signOut (e) {
+      e.preventDefault();
+      logout();
+    }
     return (
       <React.Fragment>
         <SpotifyIcon src={icon}/>
-        <SignOut>
+        <SignOut onClick={signOut}>
           SignOut
         </SignOut>
         <NavBar>
           <NavItems>
-          <NavItem>
-            Profile
-          </NavItem>
-          <NavItem>
-            Sort
-          </NavItem>
-          
+            <NavLink to={`/`}>
+              <NavItem > 
+                Profile
+              </NavItem>
+            </NavLink>
+            <NavLink to={`/sort`}>
+              <NavItem > 
+                Sort
+              </NavItem>
+            </NavLink>
           </NavItems>
-          
         </NavBar>
       </React.Fragment>  
     );

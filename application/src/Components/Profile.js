@@ -27,9 +27,19 @@ const ArtistBlock = styled.div`
   background: #454545;
   heigth: 100px;
   width: 350px;
-  margin: 10px;
+  margin: 20px;
   display: inline-block;
   display: flex;
+  color: #FFFFFF;
+
+  border-radius: 50px;
+  background: #21272C;
+  box-shadow:  10px 10px 30px #1b2025, 
+              -10px -10px 30px #272e33;
+  &:hover {
+    cursor: default;
+    color: #1DB954;
+  }
 
 `;
 const ArtistFlex = styled.div`
@@ -53,25 +63,36 @@ const ArtistImgSrc = styled.img`
   padding: 0px;
 `;
 const ArtistName = styled.div`
-  color: #FFFFFF;
   font-size: 150%;
   display: inline-block;
   margin-top: 30px;
   margin-left: 10px;
+  &:hover {
+    cursor: default;
+  }
+`;
+const Loading = styled.div`
+  font-size: 100px;
+  width: 100%;
+  height: 100%;
+  color: white;
+  position: fixed;
+  top: 40%;
+  left: 40%;
 `;
 
 class Profile extends Component {
   state = {
     user: null,
     artists: null,
-    tracks: null,
+
   };
   componentDidMount() {
     this.getData();
   }
   async getData() {
-    const { user, artists, tracks } = await getUserInfo();
-    this.setState({ user, artists, tracks});
+    const { user, artists} = await getUserInfo();
+    this.setState({ user, artists});
   }
   newName(name) {
     if (name.length > 18) {
@@ -80,7 +101,7 @@ class Profile extends Component {
     return name;
   }
   render() {
-    const {user, artists, tracks} = this.state;
+    const {user, artists} = this.state;
     return (
       <React.Fragment>
         {user ? (
@@ -102,7 +123,7 @@ class Profile extends Component {
             </ArtistFlex>
           </React.Fragment>
         ) : (
-          <h1>Loading...</h1>
+          <Loading>Loading...</Loading>
         )}
       </React.Fragment>  
     );
