@@ -23,16 +23,13 @@ const Sorter = styled.div`
   }
 `;
 const TrackBlock = styled.div`
-  
-  background: #454545;
   heigth: 100px;
   width: 100%;
-  margin-top: -1px;
-  border-style: solid;
-  border-width: 1px;
-  border-color: grey;
+  margin-bottom: 20px;
+  
   color: #FFFFFF;
   display: flex;
+  background: #21272C;
   &:hover {
     cursor: default;
     color: #1DB954;
@@ -46,14 +43,27 @@ const TrackFlex = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
   justify-conent: center;
+  border-radius: 35px;
+  background: #21272C;
+  box-shadow:  10px 10px 30px #1b2025, 
+              -10px -10px 30px #272e33;
+  
 `;
 
 const TrackName = styled.div`
   font-size: 150%;
-  display: inline-block;
+  display: inline;
   margin-top: auto;
   margin-left: 10px;
   
+  
+`;
+const TrackArtist = styled.div`
+  font-size: 150%;
+  display: inline-block;
+  color: grey;
+  margin-top: auto;
+  margin-left: 10px;
 `;
 const Loading = styled.div`
   font-size: 100px;
@@ -96,8 +106,11 @@ class Playlist extends Component {
               {playlist.tracks.items.map((tracks, i) => (
                 <TrackBlock key = {i}>
                   <TrackName >
-                    {tracks.track.name}
+                     {tracks.track.name}
                   </TrackName>
+                  <TrackArtist>
+                    - {tracks.track.artists[0].name}
+                  </TrackArtist>
                 </TrackBlock>
               ))}
             </TrackFlex>

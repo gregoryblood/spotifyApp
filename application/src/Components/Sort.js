@@ -12,19 +12,26 @@ const Title = styled.div`
   
 `;
 const PlaylistBlock = styled(Link)`
-  border-radius: 50px;
-  background: #454545;
   heigth: 100px;
-  width: 350px;
-  margin: 10px;
+  width: 450px;
+  margin: 20px;
   text-decoration: none;
   color: #FFFFFF;
   display: flex;
+  border-radius: 35px;
+  background: #21272C;
+  box-shadow:  10px 10px 30px #1b2025, 
+              -10px -10px 30px #272e33;
 
   &:hover {
     cursor: pointer;
     color: #1DB954;
+    border-radius: 50px;
+    background: #21272C;
+    box-shadow: inset 20px 20px 60px #1b2025, 
+                inset -20px -20px 60px #272e33;
   }
+
 `;
 const PlaylistFlex = styled.div`
   display: flex;
@@ -36,14 +43,15 @@ const PlaylistFlex = styled.div`
 `;
 const PlaylistImg = styled.div`
   margin-top: 4px;
-  margin-left: 5px;
+  margin-left: 10px;
   display: inline-block;
 `;
 const PlaylistImgSrc = styled.img`
-  height: 80px;
-  width: 80px;
-  border-radius: 100%;
+  height: 70px;
+  width: 70px;
+  border-radius: 10px;
   margin: 0px;
+  margin-left: 10px;
   padding: 0px;
 `;
 const PlaylistName = styled.div`
@@ -77,8 +85,8 @@ class Sort extends Component {
     this.setState({ playlists});
   }
   newName(name) {
-    if (name.length > 18) {
-      return name.slice(0,18).concat("..");
+    if (name.length > 24) {
+      return name.slice(0,24).concat("..");
     }
     return name;
   }

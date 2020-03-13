@@ -12,6 +12,7 @@ const SpotifyIcon = styled.img`
   top: 30px;
   height: 100px;
   width: 100px;
+
   &:hover {
     cursor: normal;
   }
