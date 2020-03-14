@@ -69,7 +69,17 @@ const headers = {
   Authorization: `Bearer ${token}`,
   'Content-Type': 'application/json',
 };
- 
+//Creates a Playlist
+export const createPlaylist = (userId, name) => {
+  const url = `https://api.spotify.com/v1/users/${userId}/playlists`;
+  const data = JSON.stringify({ name });
+  return axios({ method: 'post', url, headers, data });
+};
+//Adds tracks to a given playlist
+export const addTracksToPlaylist = (playlistId, uris) => {
+  const url = `https://api.spotify.com/v1/playlists/${playlistId}/tracks?uris=${uris}`;
+  return axios({ method: 'post', url, headers });
+};
 //Gets user
 export const getUser = () => 
   axios.get('https://api.spotify.com/v1/me', { headers });
@@ -84,8 +94,8 @@ export const getPlaylist = playlistId =>
   axios.get(`https://api.spotify.com/v1/playlists/${playlistId}`, { headers });
 
 //gets features of a track (Needs Track Id)
-export const getTrackAudioFeatures = trackId =>
-  axios.get(`https://api.spotify.com/v1/audio-features/${trackId}`, { headers });
+export const getTrackAudioFeatures = trackIds =>
+  axios.get(`https://api.spotify.com/v1/audio-features/?ids=${trackIds}`, { headers });
 
 
 
@@ -131,10 +141,10 @@ export const getCertainPlaylist = playlistId => {
     );
 }
 //gets track features
-export const getTrackInfo = trackId => {
+export const getTrackInfo = trackIds => {
   console.debug("== Getting TrackIds");
   return axios
-    .all([getTrackAudioFeatures(trackId)])
+    .all([getTrackAudioFeatures(trackIds)])
     .then(
       axios.spread((audioFeatures) => {
         return {
@@ -143,3 +153,15 @@ export const getTrackInfo = trackId => {
       }),
     );
 };
+export const getPlaylistData = (user, name) => {
+  return axios
+    .all([createPlaylist(user, name)])
+    .then(
+      axios.spread((newPlaylist) => {
+        return {
+          newPlaylist: newPlaylist.data,
+        };
+      }),
+    );
+}
+

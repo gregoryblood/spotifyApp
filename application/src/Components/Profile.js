@@ -151,7 +151,6 @@ class Profile extends Component {
                       {this.newName(artist.name)}
                     </ArtistName>
                   </ArtistBlock>
-                  
                 ))}
             </ArtistFlex>
           </React.Fragment>

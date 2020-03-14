@@ -89,9 +89,9 @@ class Nav extends Component {
         </SignOut>
         <NavBar>
           <NavItems>
-            <NavLink to={`/`}>
+            <NavLink to={`/top`}>
               <NavItem > 
-                Profile
+                Top
               </NavItem>
             </NavLink>
             <NavLink to={`/sort`}>

@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
-import { getCertainPlaylist, getHashParams } from '../API/spotify'
+import { getCertainPlaylist, 
+          getHashParams, 
+          createPlaylist, 
+          getUserInfo,
+          getTrackInfo,
+          addTracksToPlaylist,
+          getPlaylistData, 
+          } from '../API/spotify'
 
 const Sorter = styled.div`
   font-size: 48px;
@@ -13,8 +20,8 @@ const Sorter = styled.div`
   width: 400px;
   padding: 20px 10px;
   border-style: solid;
-  border-color: grey;
-  border-width: 1px;
+  border-color: #1DB954;
+  border-width: 2px;
   border-radius: 50px;
   &:hover, &:focus {
     cursor: pointer;
@@ -63,6 +70,7 @@ const TrackFlex = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
   justify-conent: center;
+  margin-bottom: 150px;
   @media(min-width: 768px) {
     border-radius: 35px;
     background: #21272C;
@@ -104,15 +112,18 @@ const Loading = styled.div`
 class Playlist extends Component {
   state = {
     playlist: null,
-
+    user: null,
+    newPlaylist: null,
   };
+  
   componentDidMount() {
     const name = getHashParams();
     this.getData(name[Object.keys(name)[0]]);
   }
   async getData(id) {
     const { playlist } = await getCertainPlaylist(id);
-    this.setState({ playlist });
+    const { user } = await getUserInfo();
+    this.setState({ playlist, user });
   }
 
   getPic(array) {
@@ -121,13 +132,66 @@ class Playlist extends Component {
         return array[i].url;
     }
   }
+  //Adds array to playlist
+  addToPlaylist = async (id, array) => {
+    await addTracksToPlaylist(id, array);
+    window.location.assign(`http://localhost:3000/sort`);
+  }
+  async getData(id) {
+    const { playlist } = await getCertainPlaylist(id);
+    const { user } = await getUserInfo();
+    this.setState({ playlist, user });
+  }
+  makePlaylist = async () => {
+    const { playlist, user, newPlaylist } = this.state;
+    const name = `${playlist.name}+`;
+
+    const userId = user.id;
+    if (user && name) {
+      
+      const { newPlaylist } = await getPlaylistData(userId, name);
+      this.setState({ playlist, user, newPlaylist });
+      
+      var ids = [];
+      for(var i = 0; i < playlist.tracks.items.length; i++) {
+        ids.push(`${playlist.tracks.items[i].track.id}`);
+      }
+      
+      const { audioFeatures } = await getTrackInfo(ids);
+
+      var array = [], key, j;
+      //Add the first
+      for (var i = 0; i < playlist.tracks.items.length; i++) {
+        array.push(audioFeatures.audio_features[i]);
+      }
+      //INSERTION SORT! 
+      for(var i = 1; i < playlist.tracks.items.length; i++) {
+        key = array[i];
+        j = i - 1;
+        while (j >= 0 && array[j].energy > key.energy) {
+          array[j+1] = array[j];
+          j = j - 1;
+        }
+        array[j + 1] = key;
+      }
+      var newids = [];
+      //Array now has playlists ordered based from energy.
+      for (var i = 0; i < playlist.tracks.items.length; i++) {
+        //console.log(array[i].energy);
+        newids.push(`${array[i].uri}`);
+      }
+      this.addToPlaylist(newPlaylist.id, newids);
+      
+    }
+  };
   render() {
     const {playlist} = this.state;
+
     return (
       <React.Fragment>
         {playlist ? (
           <React.Fragment>
-            <Sorter>Sort by Energy</Sorter>
+            <Sorter onClick={() => this.makePlaylist()}>Sort by Energy</Sorter>
             <Tip>A new playlist will be created</Tip>
             <TrackFlex>
               {playlist.tracks.items.map((tracks, i) => (

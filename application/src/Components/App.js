@@ -40,14 +40,14 @@ class App extends Component {
           <React.Fragment>
             <Nav/>
             <Switch >
-              <Route path="/sort">
-                <Sort/>
+              <Route path="/top">
+                <Profile/>
               </Route>
               <Route path="/playlist">
                 <Playlist/>
               </Route>
               <Route path="/">
-                <Profile/>
+                <Sort/>
               </Route>
             </Switch>
           </React.Fragment>
