@@ -86,6 +86,8 @@ export const getUser = () =>
 //gets user's top artists from the last 6 months
 export const getArtists = () =>
   axios.get('https://api.spotify.com/v1/me/top/artists?limit=50&time_range=medium_term', { headers });
+export const getTracks = () =>
+  axios.get('https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=medium_term', { headers });
 //gets a user's playlists
 export const getPlaylists = () =>
   axios.get('https://api.spotify.com/v1/me/playlists?limit=50', { headers });
@@ -103,12 +105,13 @@ export const getTrackAudioFeatures = trackIds =>
 export const getUserInfo = () => {
   console.debug("== Getting User Info");
   return axios
-    .all([getUser(), getArtists()])
+    .all([getUser(), getArtists(), getTracks()])
     .then(
-      axios.spread((user, artists) => {
+      axios.spread((user, artists, tracks) => {
         return {
           user: user.data,
           artists: artists.data,
+          tracks: tracks.data,
         };
       }),
     );

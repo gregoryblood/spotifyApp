@@ -11,6 +11,7 @@ import styled from '@emotion/styled';
 import LoginScreen from './LoginScreen';
 import Profile from './Profile';
 import Playlist from './Playlist';
+import TopTracks from './TopTracks';
 import Sort from './Sort';
 import Nav from './NavBar';
 import { token } from '../API/spotify';
@@ -40,8 +41,11 @@ class App extends Component {
           <React.Fragment>
             <Nav/>
             <Switch >
-              <Route path="/top">
+              <Route path="/artists">
                 <Profile/>
+              </Route>
+              <Route path="/tracks">
+                <TopTracks/>
               </Route>
               <Route path="/playlist">
                 <Playlist/>

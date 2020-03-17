@@ -108,18 +108,18 @@ const Loading = styled.div`
   }
 `;
 
-class Profile extends Component {
+class TopTracks extends Component {
   state = {
     user: null,
-    artists: null,
+    tracks: null,
 
   };
   componentDidMount() {
     this.getData();
   }
   async getData() {
-    const { user, artists} = await getUserInfo();
-    this.setState({ user, artists});
+    const { user, tracks} = await getUserInfo();
+    this.setState({ user, tracks});
   }
   newName(name) {
     if (name.length > 24) {
@@ -134,21 +134,21 @@ class Profile extends Component {
     }
   }
   render() {
-    const {user, artists} = this.state;
+    const {user, tracks} = this.state;
     return (
       <React.Fragment>
         {user ? (
           <React.Fragment>
             <UserImg src={user.images[0].url}></UserImg>
-            <Name>{user.display_name}'s Top Artists</Name>
+            <Name>{user.display_name}'s Top Tracks</Name>
             <ArtistFlex>
-                {artists.items.map((artist, i) => (
+                {tracks.items.map((track, i) => (
                   <ArtistBlock key = {i}>
                     <ArtistImg>
-                      {artist.images.length && <ArtistImgSrc src={this.getPic(artist.images)} alt=""/>}
+                      {track.album.images.length && <ArtistImgSrc src={this.getPic(track.album.images)} alt=""/>}
                     </ArtistImg>
                     <ArtistName >
-                      {this.newName(artist.name)}
+                      {this.newName(track.name)}
                     </ArtistName>
                   </ArtistBlock>
                 ))}
@@ -161,4 +161,4 @@ class Profile extends Component {
     );
   }
 }
-export default Profile;
+export default TopTracks;

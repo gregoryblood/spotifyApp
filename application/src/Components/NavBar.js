@@ -51,24 +51,25 @@ const NavBar = styled.div`
 
   box-shadow: 0px 0 25px 25px #21272C;
 `;
-const NavItems = styled.ul`
+const NavItems = styled.div`
   text-align: center;
-
+  margin: 0px auto;
 `;
-const NavItem = styled.div`
+const NavItem = styled(NavLink)`
   color: #FFFFFF;
   display: inline-block;
   font-size: 36px;
-  margin: 15px 0px;
-  margin-right: 50px;
+  margin: 0 15px;
+  margin-top: 35px;
+  text-decoration: none;
   @media(max-width: 768px) {
-    font-size: 24px;
+    font-size: 20px;
   }
   &:hover {
     color: #1DB954;
     cursor: pointer;
   }
-  &:active {
+  &.active {
     color: #1DB954;
   }
 `;
@@ -89,16 +90,21 @@ class Nav extends Component {
         </SignOut>
         <NavBar>
           <NavItems>
-            <NavLink to={`/top`}>
-              <NavItem > 
-                Top
-              </NavItem>
-            </NavLink>
-            <NavLink to={`/sort`}>
-              <NavItem > 
+            <NavItem to={`/artists`}>
+
+                Top Artists
+
+            </NavItem>
+            <NavItem to={`/tracks`}>
+
+                Top Tracks
+
+            </NavItem>
+            <NavItem to={`/sort`}>
+
                 Sort
-              </NavItem>
-            </NavLink>
+
+            </NavItem>
           </NavItems>
         </NavBar>
       </React.Fragment>  
