@@ -1,0 +1,25 @@
+{
+  "name": "spotify-organizer-web",
+  "version": "1.0.0",
+  "description": "Find new music",
+  "main": "(web.js)",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gregoryblood/spotifyApp.git"
+  },
+  "author": "gregory blood",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gregoryblood/spotifyApp/issues"
+  },
+  "homepage": "https://github.com/gregoryblood/spotifyApp#readme",
+  "dependencies": {
+    "express": "4.16.1"
+  },
+  "engines": {
+    "node": "13.9.0"
+  }
+}
