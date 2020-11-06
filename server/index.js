@@ -40,10 +40,10 @@ const app = express();
 app.use(express.static(path.resolve(__dirname, '../build')));
 
 app
-  .use(express.static(path.resolve(__dirname, '../client/build')))
+  .use(express.static(path.resolve(__dirname, '../application/build')))
   .use(cors())
   .use(cookieParser())
-  .use(express.static(path.resolve(__dirname, '../client/build')));
+  .use(express.static(path.resolve(__dirname, '../application/build')));
 app.use(function(req, res, next) {
   var err = null;
   try {
@@ -60,7 +60,7 @@ app.use(function(req, res, next) {
 });
 
 app.get('/', function (req, res) {
-  res.render(path.resolve(__dirname, '../client/build/index.html'));
+  res.render(path.resolve(__dirname, '../application/build/index.html'));
 });
 
 app.get('/login', function(req, res) {
@@ -168,7 +168,7 @@ app.get('/refresh_token', function(req, res) {
 });
 // All remaining requests return the React app, so it can handle routing.
 app.get('*', function (request, response) {
-  response.sendFile(path.resolve(__dirname, '../client/public', 'index.html'));
+  response.sendFile(path.resolve(__dirname, '../application/public', 'index.html'));
 });
 
 console.log('Listening on 8888');
