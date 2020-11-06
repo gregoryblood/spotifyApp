@@ -47,7 +47,7 @@ app.use(express.static(path.resolve(__dirname, '../application/build')));
   app.get('/', function (req, res) {
     res.render(path.resolve(__dirname, '../application/build/index.html'));
   });
-
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/login', function(req, res) {
 
@@ -151,6 +151,10 @@ app.get('/refresh_token', function(req, res) {
       });
     }
   });
+});
+// All remaining requests return the React app, so it can handle routing.
+app.get('*', function (request, response) {
+  response.sendFile(path.resolve(__dirname, '../application/public', 'index.html'));
 });
 
 console.log('Listening on 8888');
