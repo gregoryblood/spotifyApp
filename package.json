@@ -4,10 +4,12 @@
   "description": "Find new music",
   "main": "(web.js)",
   "scripts": {
+    "client:install": "cd client && npm",
+    "client": "cd client && npm start",
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "node server",
     "start": "node server/index.js",
-    "heroku-postbuild": "cd client/ && npm && npm install && npm run build"
+    "heroku-postbuild": "cd client/ && npm && npm install --production && npm run build"
   },
   "repository": {
     "type": "git",
