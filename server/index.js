@@ -167,7 +167,7 @@ app.get('/refresh_token', function(req, res) {
 });
 // All remaining requests return the React app, so it can handle routing.
 app.get('*', function (request, response) {
-  response.sendFile(path.resolve(__dirname, '../application/public', 'index.html'));
+  response.sendFile(path.resolve(__dirname, '../build/public', 'index.html'));
 });
 
 console.log('Listening on 8888');
