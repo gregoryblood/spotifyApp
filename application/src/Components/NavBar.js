@@ -100,7 +100,7 @@ class Nav extends Component {
                 Top Tracks
 
             </NavItem>
-            <NavItem to={`/sort`}>
+            <NavItem to={`/playlist`}>
 
                 Sort
 
