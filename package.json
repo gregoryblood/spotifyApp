@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "node server",
     "start": "node server",
-    "heroku-postbuild": "npm && npm install --production && npm run build"
+    "heroku-postbuild": "npm install --production && npm run build"
   },
   "repository": {
     "type": "git",
