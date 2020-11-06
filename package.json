@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/gregoryblood/spotifyApp/issues"
   },
-  "homepage": "https://github.com/gregoryblood/spotifyApp#readme",
+  "homepage": "https://spotify-organizer-web.herokuapp.com/",
   "dependencies": {
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
