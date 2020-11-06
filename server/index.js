@@ -6,7 +6,7 @@
  * For more information, read
  * https://developer.spotify.com/web-api/authorization-guide/#authorization_code_flow
  */
-
+require('dotenv').config();
 var express = require('express'); // Express web server framework
 var request = require('request'); // "Request" library
 var cors = require('cors');
@@ -15,8 +15,8 @@ var cookieParser = require('cookie-parser');
 
 var client_id = '7fdc86b92efb4481acfc8a3cf4891dd1'; // Your client id
 var client_secret = 'b24b59f0ce50488ba6901a37a9fc5814'; // Your secret
-var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
-
+var redirect_uri = 'https://spotify-organizer-web.herokuapp.com/callback'; // Your redirect uri
+const PORT = process.env.PORT || 8888;
 /**
  * Generates a random string containing numbers and letters
  * @param  {number} length The length of the string
@@ -105,7 +105,7 @@ app.get('/callback', function(req, res) {
 
         // we can also pass the token to the browser to make requests from there
         res.redirect(
-          `http://localhost:3000/#${querystring.stringify({
+          `https://spotify-organizer-web.herokuapp.com/#${querystring.stringify({
             access_token,
             refresh_token,
           })}`,
@@ -145,4 +145,4 @@ app.get('/refresh_token', function(req, res) {
 });
 
 console.log('Listening on 8888');
-app.listen(8888);
+app.listen(PORT);

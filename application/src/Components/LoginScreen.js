@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 const LOGIN_URI =
-  'http://localhost:8888/login'
+  'https://spotify-organizer-web.herokuapp.com/login'
 
 
 const LoginButton = styled.a`
