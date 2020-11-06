@@ -34,20 +34,19 @@ var generateRandomString = function(length) {
 
 var stateKey = 'spotify_auth_state';
 
-var app = express();
+const app = express();
 
 app.use(express.static(path.resolve(__dirname, '../application/build')));
+app.use(express.static(path.resolve(__dirname, '../application/public')));
+app
+  .use(express.static(path.resolve(__dirname, '../application/build')))
+  .use(cors())
+  .use(cookieParser())
+  .use(express.static(path.resolve(__dirname, '../application/build')));
 
-  app
-    .use(express.static(path.resolve(__dirname, '../application/build')))
-    .use(cors())
-    .use(cookieParser())
-    .use(express.static(path.resolve(__dirname, '../application/build')));
-
-  app.get('/', function (req, res) {
-    res.render(path.resolve(__dirname, '../application/build/index.html'));
-  });
-app.use(express.static(path.join(__dirname, 'public')));
+app.get('/', function (req, res) {
+  res.render(path.resolve(__dirname, '../application/build/index.html'));
+});
 
 app.get('/login', function(req, res) {
 
