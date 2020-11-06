@@ -22,7 +22,7 @@
     "eject": "react-scripts eject"
   },
   "homepage": "https://spotify-organizer-web.herokuapp.com",
-  "proxy": "http://localhost:8888",
+  "proxy": "http://localhost:3000",
   "eslintConfig": {
     "extends": "react-app"
   },
