@@ -9,7 +9,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "node server",
     "start": "node server",
-    "heroku-postbuild": "cd .. && cd client && npm install --production && npm run build"
+    "dev": "concurrently --kill-others-on-fail \"npm server\" \"npm client\"",
+    "heroku-postbuild": "cd client && npm install --production && npm run build"
   },
   "repository": {
     "type": "git",
