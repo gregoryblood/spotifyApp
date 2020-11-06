@@ -43,6 +43,20 @@ app
   .use(cors())
   .use(cookieParser())
   .use(express.static(path.resolve(__dirname, '../application/build')));
+app.use(function(req, res, next) {
+  var err = null;
+  try {
+      decodeURIComponent(req.path)
+  }
+  catch(e) {
+      err = e;
+  }
+  if (err){
+      console.log(err, req.url);
+      return res.redirect(['https://spotify-organizer-web.herokuapp.com/404'].join(''));    
+  }
+  next();
+});
 
 app.get('/', function (req, res) {
   res.render(path.resolve(__dirname, '../application/build/index.html'));
