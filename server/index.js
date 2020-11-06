@@ -36,13 +36,13 @@ var stateKey = 'spotify_auth_state';
 
 const app = express();
 
-app.use(express.static(path.resolve(__dirname, '../application/build')));
+
 app.use(express.static(path.resolve(__dirname, '../application/public')));
 app
-  .use(express.static(path.resolve(__dirname, '../application/build')))
+  .use(express.static(path.resolve(__dirname, '../application/public')))
   .use(cors())
   .use(cookieParser())
-  .use(express.static(path.resolve(__dirname, '../application/build')));
+  .use(express.static(path.resolve(__dirname, '../application/public')));
 app.use(function(req, res, next) {
   var err = null;
   try {
@@ -59,7 +59,7 @@ app.use(function(req, res, next) {
 });
 
 app.get('/', function (req, res) {
-  res.render(path.resolve(__dirname, '../application/build/index.html'));
+  res.render(path.resolve(__dirname, '../application/public/index.html'));
 });
 
 app.get('/login', function(req, res) {
