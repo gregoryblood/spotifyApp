@@ -43,6 +43,9 @@ class App extends Component {
               <Route path="/tracks">
                 <TopTracks/>
               </Route>
+              <Route path="/sort">
+                <Sort/>
+              </Route>
               <Route path="/playlist">
                 <Playlist/>
               </Route>

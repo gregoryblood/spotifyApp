@@ -135,7 +135,7 @@ class Playlist extends Component {
   //Adds array to playlist
   addToPlaylist = async (id, array) => {
     await addTracksToPlaylist(id, array);
-    window.location.assign(`https://spotify-organizer-web.herokuapp.com/playlist`);
+    window.location.assign(`https://spotify-organizer-web.herokuapp.com/sort`);
   }
   async getData(id) {
     const { playlist } = await getCertainPlaylist(id);
