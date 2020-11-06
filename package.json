@@ -8,7 +8,7 @@
     "client": "cd client && npm start",
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "node server",
-    "start": "node server/index.js",
+    "start": "node server",
     "heroku-postbuild": "cd client/ && npm && npm install --production && npm run build"
   },
   "repository": {
