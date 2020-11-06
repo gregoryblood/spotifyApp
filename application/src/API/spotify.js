@@ -21,7 +21,7 @@ export const getHashParams = () => {
   return result;
 };
 const refreshToken = async() => {
-  const { data } = await axios.get(`/refresh_token?refresh_token=${getLocalRefreshToken()}`);
+  const { data } = await axios.get(`https://spotify-organizer-web.herokuapp.com/refresh_token`);
   const { access_token } = data;
   setLocalAccessToken(access_token);
   window.location.reload();
@@ -31,6 +31,9 @@ const refreshToken = async() => {
 export const getAccessToken = () => {
   //after 1 hour grab a new one
   if (Date.now() - getExpTime() > 1000 * 60 * 60) {
+    logout();
+    window.location.href = "https://spotify-organizer-web.herokuapp.com";
+
     console.debug("== REFRESHED TOKEN");
     refreshToken();
   }
@@ -56,7 +59,7 @@ export const logout = () => {
   window.localStorage.removeItem('spotify_token_timestamp');
   window.localStorage.removeItem('spotify_access_token');
   window.localStorage.removeItem('spotify_refresh_token');
-  window.location.assign("https://spotify-organizer-web.herokuapp.com/");
+  window.location.assign("https://spotify-organizer-web.herokuapp.com");
 };
 
 
