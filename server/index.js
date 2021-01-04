@@ -13,8 +13,8 @@ var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 const path = require('path');
-var client_id = '7fdc86b92efb4481acfc8a3cf4891dd1'; // Your client id
-var client_secret = 'b24b59f0ce50488ba6901a37a9fc5814'; // Your secret
+var client_id = process.env.CLIENT_ID;; // Your client id
+var client_secret = process.env.CLIENT_SECRET; // Your secret
 var redirect_uri = 'https://spotify-organizer-web.herokuapp.com/callback'; // Your redirect uri
 const PORT = process.env.PORT || 8888;
 /**
