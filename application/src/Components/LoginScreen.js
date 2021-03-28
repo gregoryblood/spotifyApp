@@ -27,6 +27,8 @@ const Title = styled.div`
   font-weight: bold;
   text-align: center;
   margin-top: 200px;
+  display: inline-block;
+  position: fixed;
 `;
 const Info = styled.div`
   font-size: 24px;
@@ -34,6 +36,8 @@ const Info = styled.div`
   font-style: italic;
   text-align: center;
   bottom: 0;
+  display: inline-block;
+  position: fixed;
 `;
 const LoginScreen = () => (
   <React.Fragment>

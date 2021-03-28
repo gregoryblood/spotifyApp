@@ -135,7 +135,7 @@ class Playlist extends Component {
   //Adds array to playlist
   addToPlaylist = async (id, array) => {
     await addTracksToPlaylist(id, array);
-    window.location.assign(`https://spotify-organizer-web.herokuapp.com/`);
+    window.location.assign(`https://spotify-organizer-web.herokuapp.com/sort`);
   }
   async getData(id) {
     const { playlist } = await getCertainPlaylist(id);
@@ -168,16 +168,16 @@ class Playlist extends Component {
       for(var i = 1; i < playlist.tracks.items.length; i++) {
         key = array[i];
         j = i - 1;
-        while (j >= 0 && array[j].energy > key.energy) {
+        while (j >= 0 && array[j].tempo > key.tempo) {
           array[j+1] = array[j];
           j = j - 1;
         }
         array[j + 1] = key;
       }
       var newids = [];
-      //Array now has playlists ordered based from energy.
+      //Array now has playlists ordered based from tempo.
       for (var i = 0; i < playlist.tracks.items.length; i++) {
-        //console.log(array[i].energy);
+        //console.log(array[i].tempo);
         newids.push(`${array[i].uri}`);
       }
       this.addToPlaylist(newPlaylist.id, newids);
@@ -191,7 +191,7 @@ class Playlist extends Component {
       <React.Fragment>
         {playlist ? (
           <React.Fragment>
-            <Sorter onClick={() => this.makePlaylist()}>Sort by Energy</Sorter>
+            <Sorter onClick={() => this.makePlaylist()}>Sort by BPM</Sorter>
             <Tip>A new playlist will be created</Tip>
             <TrackFlex>
               {playlist.tracks.items.map((tracks, i) => (

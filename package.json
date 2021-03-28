@@ -11,7 +11,6 @@
     "start": "node server/index.js",
     "heroku-postbuild": "cd application && npm install && npm run build",
     "dev": "concurrently --kill-others-on-fail \"npm server\" \"npm client\""
-
   },
   "repository": {
     "type": "git",
